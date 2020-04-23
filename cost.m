@@ -1,13 +1,14 @@
-function [J,grad] = cost(parameters,m,labels,lambda)
+function [J,grad] = cost(X_train,y_train,parameters,labels,input_layer_size,hidden_layer_size,lambda)
 
 % deriving the cost of the model and grad vectors of parameters
 K = labels;
 J = 0;
 reg_term = 0;
+m = size(X_train,1);
 
 y_new = zeros(m,labels);
 for i=1:m,
-  y_new(i,y(i)) = 1;
+  y_new(i,y_train(i)) = 1;
 endfor
 
 a1 = X_train;
@@ -48,7 +49,7 @@ for i=1:m,
    a3 = sigmoid(z3);
    a3 = a3';
    
-   y_n = [1:K == y(i)]';
+   y_n = [1:K == y_train(i)]';
    
    d3 = a3 - y_n;
    
@@ -67,7 +68,7 @@ theta_grad1(:,2:end) = theta_grad1(:,2:end) + (lambda/m) * Theta1(:,2:end);
 theta_grad2(:,2:end) = theta_grad2(:,2:end) + (lambda/m) * Theta2(:,2:end);
 
 
-end
+endfunction
 
 
 
