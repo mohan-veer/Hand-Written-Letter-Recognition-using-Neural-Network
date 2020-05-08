@@ -5,24 +5,43 @@ function [X_train,y_train,X_test,y_test] = dataloading()
 %total features = 784
 %labels = 0 to 25(a-z)
 %number of training examples = 372451
-
+labels = 26;
 total_data = csvread("handwritten.csv");
 % Number of trainig examples are too large to handle 
-% we will select few rando examples for the model
+% we will select few random examples for the model
+% labeling is  from 0-25 :  changing them to 1-26 help us in easy indexing
+total_data(:,1) = total_data(:,1)+1;
+fprintf('\nchecking whether labels are updated or not\n')
+total_data(1,1)
+total_data(268,1)
+total_data(372451,1)
 
-data = datasample(total_data,13000);
-X_train = data(:,2:end);
-y_train = data(:,1);
+% allocating training and testing values with a 75% data to train and 25% data to test
+X_train = [];
+y_train = [];
+X_test = [];
+y_test = [];
 
-data_testing = datasample(total_data,1000);
-X_test = data_testing(:,2:end);
-y_test = data_testing(:,1);
+% setting 100 samples from each laebl for testing
+for i=1:labels,
+  temp_data = total_data(total_data(:,1)==i,:);
+  total = size(temp_data,1);
+  train = 1000;
+  fprintf('\nTotal rows with label %d are : %d\n',i,total);
+  X_train = [X_train;temp_data(1:train,2:end)];
+  X_test = [X_test;temp_data(train+1:train+100,2:end)]; 
+  y_train = [y_train;temp_data(1:train,1)];
+  y_test = [y_test;temp_data(train+1:train+100,1)];
+endfor
 
-% labeling is  from 0-25 :  changing them to 126 help us in easy indexing
-y_train = y_train + 1;
-y_test = y_test + 1;
+%X_train = total_data(:,2:end);
+%y_train = total_data(:,1);
 
-fprintf('\n The size of features : ',size(X));
-fprintf('\n The size of labels : ',size(y));
+fprintf('\n The size of training features : %d x %d ',size(X_train,1),size(X_train,2));
+fprintf('\n The size of training labels : %d x %d',size(y_train,1),size(y_train,2));
+
+fprintf('\n The size of testing features : %d x %d ',size(X_test,1),size(X_test,2));
+fprintf('\n The size of testing features : %d x %d ',size(y_test,1),size(y_test,2));
+
 
 endfunction

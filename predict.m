@@ -1,6 +1,6 @@
 % PREDICTING WIHT THE MODEL
-function results = predict(Theta1,Theta2,X)
-  a1 = X_train;
+function results = predict(Theta1,Theta2,X_test)
+  a1 = X_test;
   a1 = [ones(size(a1),1) a1];  % adding a bias unit for layer 1
 
   z2 = a1 * Theta1';
