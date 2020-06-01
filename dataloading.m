@@ -43,5 +43,14 @@ fprintf('\n The size of training labels : %d x %d',size(y_train,1),size(y_train,
 fprintf('\n The size of testing features : %d x %d ',size(X_test,1),size(X_test,2));
 fprintf('\n The size of testing features : %d x %d ',size(y_test,1),size(y_test,2));
 
+rand_numbers = [56;223;900]
+for i=1:3,
+  fprintf('\nImage of alphabet with row number %d is displayed\n',i);
+  v = rand_numbers(i);
+  image = X_train(v,:)';
+  image = reshape(image,28,28);
+  imshow(image);
+  pause;
+endfor
 
 endfunction
