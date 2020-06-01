@@ -69,11 +69,6 @@ fprintf('\n The accuracy of the model with TRAINING DATA is %d\n',accuracy_perct
 fprintf('\n PREDICTING WITH TEST DATA\n');
 result = predict(Theta1,Theta2,X_test);
 
-fprintf('\nProjecting PREDICTIONS of RANDOM TEST DATA\n');
-for i=1:5,
-  image_data = X_test()
-endfor
-
 
 accuracy = mean(double(y_test==result));
 accuracy_perct = accuracy * 100;
